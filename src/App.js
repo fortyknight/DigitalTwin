@@ -1,9 +1,10 @@
 import "./App.css";
 import { Model } from "./Model";
+import { Shuilunji } from "./Shuilunji";
 import { Canvas } from "@react-three/fiber";
 import { OrbitControls } from "@react-three/drei";
 import { Area } from '@antv/g2plot';
-import { useEffect,useState,useRef } from "react";
+import { useEffect, useState, useRef } from "react";
 import { Gauge, G2 } from '@antv/g2plot';
 import { Pie } from '@antv/g2plot';
 import { Line } from '@antv/g2plot';
@@ -23,7 +24,11 @@ const App = () => {
   const [currentTime, setCurrentTime] = useState(new Date());
 
 
+  const [showModel, setShowModel] = useState(true);
 
+  const toggleModel = () => {
+    setShowModel(!showModel);
+  };
   useEffect(() => {
     const interval = setInterval(() => {
       setCurrentTime(new Date());
@@ -39,35 +44,35 @@ const App = () => {
   useEffect(() => {
     if (containerRef.current) {
       const gauge = new Gauge(containerRef.current, {
-        height:100,
+        height: 100,
         percent: 0.75,
-  range: {
-    color: 'l(0) 0:#B8E1FF 1:#3D76DD',
-  },
-  startAngle: Math.PI,
-  endAngle: 2 * Math.PI,
-  indicator: null,
-  statistic: {
-    title: {
-      offsetY: -36,
-      style: {
-        fontSize: '36px',
-        color: '#4B535E',
-      },
-      formatter: () => '4',
-    },
-    content: {
-      style: {
-        fontSize: '24px',
-        lineHeight: '44px',
-        color: '#4B535E',
-      },
-      formatter: () => '在线设备',
-    },
-  },
-});
+        range: {
+          color: 'l(0) 0:#B8E1FF 1:#3D76DD',
+        },
+        startAngle: Math.PI,
+        endAngle: 2 * Math.PI,
+        indicator: null,
+        statistic: {
+          title: {
+            offsetY: -36,
+            style: {
+              fontSize: '36px',
+              color: '#4B535E',
+            },
+            formatter: () => '4',
+          },
+          content: {
+            style: {
+              fontSize: '24px',
+              lineHeight: '44px',
+              color: '#4B535E',
+            },
+            formatter: () => '在线设备',
+          },
+        },
+      });
 
-gauge.render();
+      gauge.render();
 
       return () => {
         gauge.destroy();
@@ -84,11 +89,11 @@ gauge.render();
       const base = +new Date(2014, 9, 3);
       const oneDay = 24 * 3600 * 1000;
       const date = [];
-    
+
       const data = [];
       const values = [Math.random() * 150];
       let now = new Date(base);
-    
+
       function addData(shift) {
         const item = {};
         now = [now.getFullYear(), now.getMonth() + 1, now.getDate()].join('/');
@@ -98,7 +103,7 @@ gauge.render();
         now = new Date(+new Date(now) + oneDay);
         data.push(item);
       }
-    
+
       // 创建图表
       const newChart = new G2.Chart({
         container: chartContainerRef.current,
@@ -115,9 +120,9 @@ gauge.render();
       newChart.line().position('date*value').color('#f80').size(3);
       newChart.area().position('date*value').color('#f80');
       newChart.render();
-    
+
       setChart(newChart);
-    
+
       let init = true;
       intervalId = setInterval(function () {
         if (init) { // 第一次载入数据
@@ -230,7 +235,6 @@ gauge.render();
       newChart.line().position('date*value1').color('#1979C9').size(3);
       newChart.line().position('date*value2').color('#D62A0D').size(3);
       newChart.line().position('date*value3').color('#FAB527').size(3);
-      console.log('cx',newChart);
       newChart.render();
 
       setLineChart(newChart);
@@ -301,7 +305,7 @@ gauge.render();
     </header>
 
 
-    <section class="mainbox">
+      <section class="mainbox">
 
       <div class="column">
         <div class="panel bar">
@@ -317,60 +321,14 @@ gauge.render();
           <div class="panel-footer"></div>
         </div>
         <div class="panel pie">
-          <h2>饼形图-设备情况</h2>
+        <h2  ><Decoration11 style={{width: '220px', height: '60px',marginLeft:'160px'}} >设备情况</Decoration11></h2>
           <UseTime></UseTime>
 
-          {/* <table id="box-table-a" summary="Employee Pay Sheet">
-    <thead>
-    	<tr>
-        	<th scope="col">设备名称</th>
-            <th scope="col">状态</th>
-            <th scope="col"> PLC报警</th>
-            <th scope="col">开机时间</th>
-            <th scope="col">使用时间</th>
-
-        </tr>
-    </thead>
-    <tbody>
-    	<tr>
-        	<td>机械臂1</td>
-            <td>$300</td>
-            <td>$50</td>
-            <td>Bob</td>
-            <td>$300</td>
-
-        </tr>
-        <tr>
-        	<td>机械臂2</td>
-          <td>$300</td>
-            <td>$50</td>
-            <td>Bob</td>
-            <td>$300</td>
-
-        </tr>
-        <tr>
-        	<td>机械臂3</td>
-          <td>$300</td>
-            <td>$50</td>
-            <td>Bob</td>
-            <td>$300</td>
-
-        </tr>
-        <tr>
-        	<td>agv</td>
-            <td>$300</td>
-            <td>$50</td>
-            <td>Bob</td>
-            <td>$300</td>
-
-        </tr>
-    </tbody>
-</table> */}
           <div class="panel-footer"> </div>
         </div>
       </div>
 
-      <div class="column">
+        <div class="column">
 
         <div class="no">
           <div class="no-hd">
@@ -382,21 +340,38 @@ gauge.render();
           </div>
         </div>
         <div class="map">
-        <Canvas camera={{ fov: 64, position: [200, 300, 200] }}>
-      {/* 调整光源的位置 */}
-      <ambientLight intensity={5} position={[-2, 2, 2]} />
-      {/* 添加一个点光源 */}
-      <pointLight intensity={1} position={[5, 5, 5]} />
-      <OrbitControls enableZoom={true} />
-      <Model />
-    </Canvas>
-
+        <div class="buttons" >
+  <button class="blob-btn" onClick={toggleModel}>
+    场景切换
+    <span class="blob-btn__inner">
+      <span class="blob-btn__blobs">
+        <span class="blob-btn__blob"></span>
+        <span class="blob-btn__blob"></span>
+        <span class="blob-btn__blob"></span>
+        <span class="blob-btn__blob"></span>
+      </span>
+    </span>
+  </button>
+  <br/>
+</div>
+<div style={{marginTop:'0px'}}>
+            <Canvas camera={{ fov: 64, position: [200, 700, 200] }}>
+              {/* 调整光源的位置 */}
+              <ambientLight intensity={5} position={[-2, 2, 2]} />
+              {/* 添加一个点光源 */}
+              <pointLight intensity={1} position={[5, 5, 5]} />
+              <OrbitControls enableZoom={true} />
+              {/* 根据状态决定展示哪个模型 */}
+              {showModel ? <Model /> : <Shuilunji />}
+            </Canvas>
+            </div>
+          </div>
+          <BorderBox8 style={{marginTop:'-300px',height:'300px'}}> <ScrollBoard config={config} style={{ width: '800px', height: '250px', paddingTop: '25px',paddingLeft:'80px'}}  /></BorderBox8>
         </div>
 
 
 {/* <div class="glass-container" id="glass" ></div> */}
-<BorderBox8 style={{marginTop:'-310px',height:'300px'}}> <ScrollBoard config={config} style={{ width: '800px', height: '260px' }}  /></BorderBox8>
-      </div>
+
       <div class="column">
         <div class="panel bar2">
 
@@ -435,13 +410,13 @@ gauge.render();
           <div class="panel-footer"></div>
         </div>
         <div class="panel pie2">
-          <h2>饼形图-设备数据量</h2>
+        <h2><Decoration11 style={{width: '220px', height: '60px',marginLeft:'160px'}} >货物情况</Decoration11></h2>
           
 
           <div class="panel-footer"></div>
         </div>
       </div>
-    </section>
+      </section>
 
   </body>
 

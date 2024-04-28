@@ -5,15 +5,15 @@ import { Row, Col, Statistic } from 'antd';
 
 const tabListNoTitle = [
   {
-    key: 'article',
+    key: 'r1',
     label: '取料机器人',
   },
   {
-    key: 'app',
+    key: 'r2',
     label: '打标机器人',
   },
   {
-    key: 'project',
+    key: 'r3',
     label: '货架机器人',
   },
   {
@@ -22,22 +22,62 @@ const tabListNoTitle = [
   },
 ];
 const contentListNoTitle = {
-  article: <div><Row gutter={16}>
+  r1: <div><Row gutter={16}>
   <Col span={6}>
-    <Statistic title="设备名称" value={112893} />
+    <Statistic title="模式" value={'jog'} />
   </Col>
   <Col span={6}>
-    <Statistic title="状态" value={112893} precision={2} />
+    <Statistic title="状态" value={'关机'}  />
   </Col>
   <Col span={6}>
-    <Statistic title="开机时间" value={112893} precision={2} />
+    <Statistic title="开机时间" value={''}  />
   </Col>
   <Col span={6}>
-    <Statistic title="使用时间" value={112893} precision={2} />
+    <Statistic title="使用时间" value={''}  />
   </Col>
 </Row></div>,
-  app: <p>app content</p>,
-  project: <p>project content</p>,
+  r2: <div><Row gutter={16}>
+  <Col span={6}>
+    <Statistic title="模式" value={'jog'} />
+  </Col>
+  <Col span={6}>
+    <Statistic title="状态" value={'关机'}  />
+  </Col>
+  <Col span={6}>
+    <Statistic title="开机时间" value={''}  />
+  </Col>
+  <Col span={6}>
+    <Statistic title="使用时间" value={''}  />
+  </Col>
+</Row></div>,
+  r3: <div><Row gutter={16}>
+  <Col span={6}>
+    <Statistic title="模式" value={'jog'} />
+  </Col>
+  <Col span={6}>
+    <Statistic title="状态" value={'关机'}  />
+  </Col>
+  <Col span={6}>
+    <Statistic title="开机时间" value={''}  />
+  </Col>
+  <Col span={6}>
+    <Statistic title="使用时间" value={''}  />
+  </Col>
+</Row></div>,
+agv:<div><Row gutter={16}>
+<Col span={6}>
+  <Statistic title="模式" value={'jog'} />
+</Col>
+<Col span={6}>
+  <Statistic title="状态" value={'关机'}  />
+</Col>
+<Col span={6}>
+  <Statistic title="开机时间" value={''}  />
+</Col>
+<Col span={6}>
+  <Statistic title="使用时间" value={''}  />
+</Col>
+</Row></div>
 };
 const UseTime = () => {
   const [activeTabKey1, setActiveTabKey1] = useState('tab1');
@@ -53,10 +93,10 @@ const UseTime = () => {
       <Card
         style={{
           width: '100%',
+          marginTop:'30px'
         }}
         tabList={tabListNoTitle}
         activeTabKey={activeTabKey2}
-        tabBarExtraContent={<a href="#">More</a>}
         onTabChange={onTab2Change}
         tabProps={{
           size: 'middle',
