@@ -7,7 +7,7 @@ import React, { useRef } from 'react'
 import { useGLTF } from '@react-three/drei'
 
 export function Shuilunji(props) {
-  const { nodes, materials } = useGLTF('/blenderStuff/Shuilunji.glb')
+  const { nodes, materials } = useGLTF(process.env.PUBLIC_URL + '/blenderStuff/Shuilunji.glb')
   return (
     <group {...props} dispose={null}>
       <group position={[1.348, 5.609, -0.348]} rotation={[Math.PI, 0, Math.PI]} scale={0.006}>
@@ -57,4 +57,4 @@ export function Shuilunji(props) {
   )
 }
 
-useGLTF.preload('/blenderStuff/Shuilunji.glb')
+useGLTF.preload(process.env.PUBLIC_URL + '/blenderStuff/Shuilunji.glb')
